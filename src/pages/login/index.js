@@ -5,8 +5,10 @@ import SignUp from "../../components/signup/index";
 import { getUserById } from "../../api-urls";
 import axios from "axios";
 import { sha512 } from "js-sha512";
+import { useHistory } from "react-router";
 
 function Login() {
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userWarning, setuserWarning] = useState(true);
@@ -16,8 +18,9 @@ function Login() {
     event.preventDefault();
     axios.get(getUserById + email).then((res) => {
       if (res.data && res.data.password === sha512(password)) {
-        alert("Logged In");
         localStorage.setItem("user", JSON.stringify(res.data));
+        history.push("/");
+        window.location.reload();
       } else {
         setuserWarning("email or password is not valid");
       }
