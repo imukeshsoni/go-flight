@@ -1,0 +1,11 @@
+.gender{
+	width: 30%;
+	display: flex;
+	font-size: 18px;
+	margin: 2%;
+	justify-content: space-around;
+}
+.radio--btn{
+	transition: 0.2s all linear;
+	position: relative;
+}

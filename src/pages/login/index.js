@@ -1,19 +1,38 @@
 import React, { useState } from "react";
 import "./styles.css";
 
+import SignUp from "../../components/signup/index";
+import { getUserById } from "../../api-urls";
+import axios from "axios";
+import { sha512 } from "js-sha512";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userWarning, setuserWarning] = useState(true);
   const [userSignUp, setuserSignUp] = useState(false);
 
-  const handleLogin = () => {};
+  const handleLogin = (event) => {
+    event.preventDefault();
+    axios.get(getUserById + email).then((res) => {
+      if (res.data && res.data.password === sha512(password)) {
+        alert("Logged In");
+        localStorage.setItem("user", JSON.stringify(res.data));
+      } else {
+        setuserWarning("email or password is not valid");
+      }
+    });
+  };
+
+  if (userSignUp) {
+    return <SignUp />;
+  }
 
   return (
     <div>
       <div className="container">
         <div className="items__container">
-          <form className="login__form" onClick={handleLogin}>
+          <form className="login__form" onSubmit={(e) => handleLogin(e)}>
             <h1>Login here</h1>
             <h4>Email</h4>
             <input
@@ -38,7 +57,7 @@ function Login() {
               Login
             </button>
             <button className="login__btn" onClick={() => setuserSignUp(true)}>
-              Sign Up?
+              Register?
             </button>
           </form>
         </div>
