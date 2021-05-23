@@ -1,0 +1,70 @@
+:root{
+
+}
+
+.container{
+	color: #078899;
+	display: flex;
+	padding-top: 1%;
+}
+.flight__dropdowns{
+	width: 30%;
+	margin: 0 2% 2% 2% ;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.flight__form{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+h2{
+	padding: 3%;
+}
+ select{
+	width: 70%;
+	height: 40px;
+	margin-bottom: 1%;
+}
+.search__btn{
+	margin: 3%;
+	height: 30px;
+	width: 30%;
+}
+.flight__headings > th{
+	height: 30px;
+	padding: 10px;
+	border: 1px solid #078899;
+}
+table{
+	border: 1px solid #078899;
+}
+td{
+	height: 30px;
+	text-align: center;
+
+}
+.booking__table{
+	overflow-x: auto;
+}
+@media screen and (max-width: 960px) {
+	.container{
+		display: flex;
+		flex-direction: column;
+	}
+	.flight__dropdowns{
+		width: 90%;
+	}
+	.flight__form{
+		width: 80%;
+	}
+	h2{
+		padding: 2%;
+
+	}
+	.booking__table{
+		width: 90%;
+	}
+}
