@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import "./styles.css";
 
-import { getAllFlights, createBooking } from "../../api-urls";
+import { getAllFlights, getFlightByLocation } from "../../api-urls";
 import { useHistory } from "react-router";
 
 function Home() {
@@ -12,23 +12,7 @@ function Home() {
   const [warning, setwarning] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const flights = JSON.parse(localStorage.getItem("flights"));
   const availableFlights = JSON.parse(localStorage.getItem("availableFlights"));
-
-  const loadFlights = () => {
-    axios
-      .get(getAllFlights)
-      .then((res) => {
-        localStorage.setItem("flights", JSON.stringify(res.data));
-      })
-      .catch((err) => {
-        alert("Something went wrong while fetching flights");
-      });
-  };
-
-  if (!flights || flights.length < 1) {
-    loadFlights();
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,18 +25,17 @@ function Home() {
       return;
     }
 
-    console.log("Source :" + source);
-    console.log("Destination :" + destination);
-
-    const filterFlights = flights.filter((t, i) => {
-      return t.source == source && t.destination == destination;
+    axios.get(getFlightByLocation + source + "/" + destination).then((res) => {
+      localStorage.setItem("availableFlights", JSON.stringify(res.data));
+      window.location.reload();
     });
-    localStorage.setItem("availableFlights", JSON.stringify(filterFlights));
-    window.location.reload();
   };
 
   const handleBook = (event, flightId) => {
     event.preventDefault();
+    const availableFlights = JSON.parse(
+      localStorage.getItem("availableFlights")
+    );
 
     if (!user || user.length < 1) {
       alert("Please log in to book");
@@ -60,7 +43,7 @@ function Home() {
       return;
     }
 
-    const selectedFlight = flights.filter((t, i) => {
+    const selectedFlight = availableFlights.filter((t, i) => {
       return t.flightId == flightId;
     });
 
@@ -71,6 +54,7 @@ function Home() {
       destination: selectedFlight[0].destination,
       arrivalTime: selectedFlight[0].arrivalTime,
       departureTime: selectedFlight[0].departureTime,
+      seatNo: selectedFlight[0].seats,
       isCheckedIn: false,
       amount: selectedFlight[0].fare,
       status: "pending",

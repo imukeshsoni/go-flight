@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import "./styles.css";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { createBooking } from "../../api-urls";
+import { createBooking, updateFlightSeatsById } from "../../api-urls";
 
 function Checkout() {
   let booking = JSON.parse(localStorage.getItem("booking"));
@@ -23,6 +23,7 @@ function Checkout() {
 
     localStorage.removeItem("booking");
     localStorage.removeItem("userBookings");
+    axios.put(updateFlightSeatsById + booking.flightId);
   };
 
   useEffect(() => {

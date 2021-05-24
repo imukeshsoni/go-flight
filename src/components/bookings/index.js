@@ -49,6 +49,7 @@ function Bookings() {
             <th>Amount</th>
             <th>Payment Status</th>
             <th>Journey Status</th>
+            <th>Seat No</th>
             <th>Checked In</th>
             <th>Cancel</th>
           </tr>
@@ -66,6 +67,7 @@ function Bookings() {
                 <td>{value.amount}</td>
                 <td>{value.paymentStatus}</td>
                 <td>{value.status}</td>
+                <td>{value.seatNo}</td>
                 <td>{value.checkedIn ? "True" : "False"}</td>
                 <td>
                   {value.status == "pending" && (

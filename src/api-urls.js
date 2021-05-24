@@ -13,8 +13,10 @@ const updateBooking = "http://localhost:8085/booking/update/";
 const createFlight = "http://localhost:8085/flight/create/";
 const deleteFlightById = "http://localhost:8085/flight/delete/";
 const getFlightById = "http://localhost:8085/flight/get/";
+const getFlightByLocation = "http://localhost:8085/flight/getbylocation/";
 const getAllFlights = "http://localhost:8085/flight/getall";
 const updateFlight = "http://localhost:8085/flight/update/";
+const updateFlightSeatsById = "http://localhost:8085/flight/updateseats/";
 
 export {
   createUser,
@@ -30,6 +32,8 @@ export {
   createFlight,
   deleteFlightById,
   getFlightById,
+  getFlightByLocation,
   getAllFlights,
   updateFlight,
+  updateFlightSeatsById,
 };
