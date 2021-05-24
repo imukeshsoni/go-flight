@@ -46,7 +46,20 @@ td{
 	text-align: center;
 
 }
+td> button{
+	width: 100%;
+	height: 100%;
+	border: none;
+	background-color: transparent;
+	transition: all 0.3s ease-in-out;
+}
+td> button:hover{
+	background-color: #078899;
+	color: #fff;
+}
+
 .booking__table{
+	width: 60%;
 	overflow-x: auto;
 }
 @media screen and (max-width: 960px) {

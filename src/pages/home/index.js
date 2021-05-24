@@ -67,24 +67,18 @@ function Home() {
     const newBooking = {
       flightId: selectedFlight[0].flightId,
       userId: user.email,
+      source: selectedFlight[0].source,
+      destination: selectedFlight[0].destination,
+      arrivalTime: selectedFlight[0].arrivalTime,
+      departureTime: selectedFlight[0].departureTime,
       isCheckedIn: false,
       amount: selectedFlight[0].fare,
       status: "pending",
       paymentStatus: "pending",
     };
     debugger;
-
-    axios
-      .post(createBooking, newBooking)
-      .then((res) => {
-        alert("Booking successfully made");
-        history.push("/profile");
-        localStorage.setItem("booking", JSON.stringify(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Something went wrong while creating booking. Check logs");
-      });
+    localStorage.setItem("booking", JSON.stringify(newBooking));
+    history.push("/checkout");
   };
 
   return (
