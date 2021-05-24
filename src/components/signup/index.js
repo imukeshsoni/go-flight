@@ -22,6 +22,7 @@ function SignUp() {
       name: name,
       password: sha512(password),
       phone: phone,
+      role: "ROLE_USER",
     };
     axios
       .post(createUser, newUser)
