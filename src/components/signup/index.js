@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 import LogIn from "../../pages/login/index";
-import { createUser } from "../../api-urls";
+import { createUser, getUserById } from "../../api-urls";
 import axios from "axios";
 import { sha512 } from "js-sha512";
 
@@ -11,7 +11,7 @@ function SignUp() {
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("Male");
-  const [userWarning, setuserWarning] = useState(true);
+  const [userWarning, setuserWarning] = useState("");
   const [userLogIn, setuserLogIn] = useState(false);
 
   const handleSignUp = (e) => {
@@ -24,16 +24,25 @@ function SignUp() {
       phone: phone,
       role: "ROLE_USER",
     };
-    axios
-      .post(createUser, newUser)
-      .then((res) => {
-        alert("User created");
-        setuserLogIn(true);
-      })
-      .catch((err) => {
-        alert("Something went wrong");
-        console.log(err);
-      });
+
+    axios.get(getUserById + email).then((res) => {
+      debugger;
+      if (res.data) {
+        setuserWarning("User already exists!");
+        return;
+      } else {
+        axios
+          .post(createUser, newUser)
+          .then((res) => {
+            alert("User created");
+            setuserLogIn(true);
+          })
+          .catch((err) => {
+            alert("Something went wrong");
+            console.log(err);
+          });
+      }
+    });
   };
 
   if (userLogIn) {
