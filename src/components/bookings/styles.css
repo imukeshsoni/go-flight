@@ -1,0 +1,15 @@
+table{
+	color: #078899
+}
+th{
+	font-size: 18px;
+	padding: 5px;
+}
+tr {
+	height: 40px;
+}
+td{
+	padding: 5px;
+	color: #000;
+}
+

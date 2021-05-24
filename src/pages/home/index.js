@@ -76,7 +76,6 @@ function Home() {
       status: "pending",
       paymentStatus: "pending",
     };
-    debugger;
     localStorage.setItem("booking", JSON.stringify(newBooking));
     history.push("/checkout");
   };

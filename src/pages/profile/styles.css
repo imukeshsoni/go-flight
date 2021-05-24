@@ -1,0 +1,26 @@
+.profile__container{
+	display: flex;
+
+}
+.side__btns{
+	display: flex;
+	flex-direction: column;
+	width: 20%;
+}
+.side__btns > button{
+	height: 30px;
+	margin: 8px;
+	border: 1px solid #078899;
+	background-color: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+}
+
+.side__btns > button:hover{
+	background-color: #078899;
+	color: #fff;
+}
+.component__page{
+	width: 120%;
+	overflow-x: auto;
+}

@@ -6,8 +6,9 @@ const updateUser = "http://localhost:8084/user/update/";
 
 const createBooking = "http://localhost:8085/booking/create";
 const getBookingById = "http://localhost:8085/booking/get/";
+const getBookingByUserId = "http://localhost:8085/booking/getbyuser/";
 const getAllBookings = "http://localhost:8085/booking/getall";
-const updateBookingById = "http://localhost:8085/booking/update/";
+const updateBooking = "http://localhost:8085/booking/update/";
 
 const createFlight = "http://localhost:8085/flight/create/";
 const deleteFlightById = "http://localhost:8085/flight/delete/";
@@ -23,8 +24,9 @@ export {
   updateUser,
   createBooking,
   getBookingById,
+  getBookingByUserId,
   getAllBookings,
-  updateBookingById,
+  updateBooking,
   createFlight,
   deleteFlightById,
   getFlightById,

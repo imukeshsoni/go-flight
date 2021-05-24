@@ -22,6 +22,7 @@ function Checkout() {
       });
 
     localStorage.removeItem("booking");
+    localStorage.removeItem("userBookings");
   };
 
   useEffect(() => {
