@@ -34,11 +34,10 @@ function SignUp() {
         axios
           .post(createUser, newUser)
           .then((res) => {
-            alert("User created");
-            setuserLogIn(true);
+            setuserWarning("User created successfully, Please log in!");
           })
           .catch((err) => {
-            alert("Something went wrong");
+            setuserWarning("Something went wrong!");
             console.log(err);
           });
       }

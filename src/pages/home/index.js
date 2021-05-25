@@ -38,7 +38,6 @@ function Home() {
     );
 
     if (!user || user.length < 1) {
-      alert("Please log in to book");
       history.push("/login");
       return;
     }

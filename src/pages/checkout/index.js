@@ -13,17 +13,15 @@ function Checkout() {
     axios
       .post(createBooking, booking)
       .then((response) => {
-        alert(successMsg);
         history.push("/profile");
       })
       .catch((err) => {
-        alert(errMsg);
-        history.push("/");
+        return <h2>{errMsg}</h2>;
       });
-
     localStorage.removeItem("booking");
     localStorage.removeItem("userBookings");
     axios.put(updateFlightSeatsById + booking.flightId);
+    return <h2>Processing...</h2>;
   };
 
   useEffect(() => {
@@ -46,13 +44,13 @@ function Checkout() {
           const order = await actions.order.capture();
           booking.paymentStatus = "completed";
           pushOrder(
-            "Your payment is successful and Booking is placed!",
+            "Your payment is successful! Redirecting...",
             "Something went wrong while adding booking. Refund will be initiated if deducted."
           );
         },
         onError: (err) => {
-          alert("Payment is failed, Please try again.");
           console.log(err);
+          return <h2>Payment is failed, Please try again.</h2>;
         },
       })
       .render(paypal.current);

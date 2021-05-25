@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import { getBookingByUserId, updateBooking } from "../../api-urls";
 import axios from "axios";
+import { Prompt } from "react-router";
 
 function Bookings() {
   const user = JSON.parse(localStorage.getItem("user"));
   let userBookings = JSON.parse(localStorage.getItem("userBookings"));
+  const [cancelBook, setCancelBook] = useState("");
 
   const loadBookings = () => {
     axios
@@ -16,8 +18,8 @@ function Bookings() {
         window.location.reload();
       })
       .catch((err) => {
-        alert("Something went wrong while fetching the bookings");
         console.log(err);
+        return <h2>Something went wrong</h2>;
       });
   };
 
@@ -70,8 +72,16 @@ function Bookings() {
                 <td>{value.seatNo}</td>
                 <td>{value.checkedIn ? "True" : "False"}</td>
                 <td>
-                  {value.status == "pending" && (
-                    <button onClick={() => handleCancel(value)}>Cancel</button>
+                  {value.status == "pending" && cancelBook == value.id ? (
+                    <button onClick={() => handleCancel(value)}>
+                      Sure Cancel?
+                    </button>
+                  ) : (
+                    value.status == "pending" && (
+                      <button onClick={() => setCancelBook(value.id)}>
+                        Cancel
+                      </button>
+                    )
                   )}
                 </td>
               </tr>
