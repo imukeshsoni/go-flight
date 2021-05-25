@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./styles.css";
-import { getBookingByUserId, updateBooking } from "../../api-urls";
+import {
+  getBookingByUserId,
+  updateBooking,
+  getAllBookings,
+} from "../../api-urls";
 import axios from "axios";
 import { Prompt } from "react-router";
 
@@ -8,23 +12,47 @@ function Bookings() {
   const user = JSON.parse(localStorage.getItem("user"));
   let userBookings = JSON.parse(localStorage.getItem("userBookings"));
   const [cancelBook, setCancelBook] = useState("");
+  const [checkIn, setCheckIn] = useState("");
 
   const loadBookings = () => {
-    axios
-      .get(getBookingByUserId + user.email)
-      .then((res) => {
-        localStorage.setItem("userBookings", JSON.stringify(res.data));
-        userBookings = JSON.parse(localStorage.getItem("userBookings"));
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
-        return <h2>Something went wrong</h2>;
-      });
+    if (user.role == "ROLE_ADMIN") {
+      axios
+        .get(getAllBookings)
+        .then((res) => {
+          localStorage.setItem("userBookings", JSON.stringify(res.data));
+          userBookings = JSON.parse(localStorage.getItem("userBookings"));
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+          return <h2>Something went wrong</h2>;
+        });
+    } else {
+      axios
+        .get(getBookingByUserId + user.email)
+        .then((res) => {
+          localStorage.setItem("userBookings", JSON.stringify(res.data));
+          userBookings = JSON.parse(localStorage.getItem("userBookings"));
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+          return <h2>Something went wrong</h2>;
+        });
+    }
   };
 
   const handleCancel = (booking) => {
     booking.status = "cancelled";
+    axios.put(updateBooking, booking).then((res) => {
+      localStorage.removeItem("userBookings");
+      loadBookings();
+      window.location.reload();
+    });
+  };
+
+  const handleCheckIn = (booking) => {
+    booking.checkedIn = true;
     axios.put(updateBooking, booking).then((res) => {
       localStorage.removeItem("userBookings");
       loadBookings();
@@ -54,6 +82,7 @@ function Bookings() {
             <th>Seat No</th>
             <th>Checked In</th>
             <th>Cancel</th>
+            {user.role == "ROLE_ADMIN" && <th>Check In</th>}
           </tr>
         </thead>
         <tbody>
@@ -72,18 +101,39 @@ function Bookings() {
                 <td>{value.seatNo}</td>
                 <td>{value.checkedIn ? "True" : "False"}</td>
                 <td>
-                  {value.status == "pending" && cancelBook == value.id ? (
+                  {value.status == "pending" &&
+                  !value.checkedIn &&
+                  cancelBook == value.id ? (
                     <button onClick={() => handleCancel(value)}>
                       Sure Cancel?
                     </button>
                   ) : (
-                    value.status == "pending" && (
+                    value.status == "pending" &&
+                    !value.checkedIn && (
                       <button onClick={() => setCancelBook(value.id)}>
                         Cancel
                       </button>
                     )
                   )}
                 </td>
+                {user.role == "ROLE_ADMIN" && (
+                  <td>
+                    {!value.checkedIn &&
+                    value.status == "pending" &&
+                    checkIn == value.id ? (
+                      <button onClick={() => handleCheckIn(value)}>
+                        Sure CheckIn?
+                      </button>
+                    ) : (
+                      !value.checkedIn &&
+                      value.status == "pending" && (
+                        <button onClick={() => setCheckIn(value.id)}>
+                          CheckIn
+                        </button>
+                      )
+                    )}
+                  </td>
+                )}
               </tr>
             );
           })}
