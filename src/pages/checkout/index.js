@@ -34,7 +34,7 @@ function Checkout() {
               {
                 description: booking.servicePlan,
                 amount: {
-                  value: 1.0,
+                  value: booking.amount,
                 },
               },
             ],
