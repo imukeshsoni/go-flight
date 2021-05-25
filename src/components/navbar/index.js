@@ -61,8 +61,6 @@ const Navbar = () => {
               </li>
             </ul>
           )}
-
-          {/* When button variable is true, button is displayed */}
         </div>
       </nav>
     </>

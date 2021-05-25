@@ -32,7 +32,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div class="container2">
       <div className="container">
         <div className="items__container">
           <form className="login__form" onSubmit={(e) => handleLogin(e)}>

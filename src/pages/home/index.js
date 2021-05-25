@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./styles.css";
+import Img from '../../images/flight1.jpg';
 
 import { getAllFlights, getFlightByLocation } from "../../api-urls";
 import { useHistory } from "react-router";
@@ -64,6 +65,7 @@ function Home() {
   };
 
   return (
+    <div>
     <div className="container">
       <div className="flight__dropdowns">
         <h2>Search Flights</h2>
@@ -147,6 +149,12 @@ function Home() {
           </tbody>
         </table>
       </div>
+
+
+    </div>
+    <div class="under">
+      <img src={Img} />
+    </div>
     </div>
   );
 }
