@@ -1,7 +1,4 @@
-:root{
-	 
 
-}
 
 .container{
 	color: #078899;
@@ -15,6 +12,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	border: 2px solid #078899;
+	border-radius: 5px;
 }
 .flight__form{
 	width: 100%;
@@ -29,11 +28,25 @@ h2{
 	width: 70%;
 	height: 40px;
 	margin-bottom: 1%;
+	border-radius: 10px;
+	border-width: 2px;
+	font-size: 16px;
+	font-weight: bold;
 }
 .search__btn{
 	margin: 3%;
 	height: 30px;
 	width: 30%;
+	background-color: transparent;
+	border: 1px solid #078899;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	font-size: 15px;
+}
+.search__btn:hover{
+	background-color: #078899;
+	color: #fff;
 }
 .flight__headings > th{
 	height: 30px;
@@ -84,7 +97,9 @@ td> button:hover{
 	}
 }
 
-.under{
+.under > img{
+	bottom: 0;
 	background:url('../../images/flight1.jpg') no-repeat ;
+	width: 100%;
 
 }

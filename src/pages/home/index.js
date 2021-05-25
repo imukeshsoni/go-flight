@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./styles.css";
-import Img from '../../images/flight1.jpg';
+import Img from "../../images/flight1.jpg";
 
 import { getAllFlights, getFlightByLocation } from "../../api-urls";
 import { useHistory } from "react-router";
@@ -66,95 +66,93 @@ function Home() {
 
   return (
     <div>
-    <div className="container">
-      <div className="flight__dropdowns">
-        <h2>Search Flights</h2>
-        <h4>Source</h4>
-        <form className="flight__form" onSubmit={(e) => handleSubmit(e)}>
-          <select
-            id="source"
-            className="dropdown"
-            onChange={(e) => setsource(e.target.value)}
-            required
-          >
-            <option value="unselected">Select Source</option>
-            <option>Delhi</option>
-            <option>Mumbai</option>
-            <option>Kolkata</option>
-            <option>Chennai</option>
-            <option>Jaipur</option>
-            <option>Hyderabad</option>
-            <option>Banglore</option>
-          </select>
-          <h4>Destination</h4>
-          <select
-            id="destination"
-            className="dropdown"
-            onChange={(e) => setDestination(e.target.value)}
-            required
-          >
-            <option value="unselected">Select Destination</option>
-            <option>Delhi</option>
-            <option>Mumbai</option>
-            <option>Kolkata</option>
-            <option>Chennai</option>
-            <option>Jaipur</option>
-            <option>Hyderabad</option>
-            <option>Banglore</option>
-          </select>
-          {warning}
-          <button type="submit" className="search__btn">
-            Search Flights
-          </button>
-        </form>
-      </div>
-      <div className="booking__table">
-        <h2>Available Flights</h2>
-        <table>
-          <thead>
-            <tr className="flight__headings">
-              <th>Flight Id</th>
-              <th>Source</th>
-              <th>Destination</th>
-              <th>Departure Time</th>
-              <th>Arrival Time</th>
-              <th>Fare</th>
-              <th>Book</th>
-            </tr>
-          </thead>
-          <tbody className="flight__body">
-            {availableFlights && availableFlights.length > 0 ? (
-              availableFlights.map((value, i) => {
-                return (
-                  <tr key={i}>
-                    <td>{value.flightId}</td>
-                    <td>{value.source}</td>
-                    <td>{value.destination}</td>
-                    <td>{value.departureTime}</td>
-                    <td>{value.arrivalTime}</td>
-                    <td>{value.fare}</td>
-                    <td>
-                      <button onClick={(e) => handleBook(e, value.flightId)}>
-                        Book
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan="7">No Flights available</td>
+      <div className="container">
+        <div className="flight__dropdowns">
+          <h2>Search Flights</h2>
+          <h4>Source</h4>
+          <form className="flight__form" onSubmit={(e) => handleSubmit(e)}>
+            <select
+              id="source"
+              className="dropdown"
+              onChange={(e) => setsource(e.target.value)}
+              required
+            >
+              <option value="unselected">Select Source</option>
+              <option>Delhi</option>
+              <option>Mumbai</option>
+              <option>Kolkata</option>
+              <option>Chennai</option>
+              <option>Jaipur</option>
+              <option>Hyderabad</option>
+              <option>Banglore</option>
+            </select>
+            <h4>Destination</h4>
+            <select
+              id="destination"
+              className="dropdown"
+              onChange={(e) => setDestination(e.target.value)}
+              required
+            >
+              <option value="unselected">Select Destination</option>
+              <option>Delhi</option>
+              <option>Mumbai</option>
+              <option>Kolkata</option>
+              <option>Chennai</option>
+              <option>Jaipur</option>
+              <option>Hyderabad</option>
+              <option>Banglore</option>
+            </select>
+            {warning}
+            <button type="submit" className="search__btn">
+              Search Flights
+            </button>
+          </form>
+        </div>
+        <div className="booking__table">
+          <h2>Available Flights</h2>
+          <table>
+            <thead>
+              <tr className="flight__headings">
+                <th>Flight Id</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Fare</th>
+                <th>Book</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="flight__body">
+              {availableFlights && availableFlights.length > 0 ? (
+                availableFlights.map((value, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{value.flightId}</td>
+                      <td>{value.source}</td>
+                      <td>{value.destination}</td>
+                      <td>{value.departureTime}</td>
+                      <td>{value.arrivalTime}</td>
+                      <td>{value.fare}</td>
+                      <td>
+                        <button onClick={(e) => handleBook(e, value.flightId)}>
+                          Book
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan="7">No Flights available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-
-
-    </div>
-    <div class="under">
-      <img src={Img} />
-    </div>
+      <div className="under">
+        <img src={Img} />
+      </div>
     </div>
   );
 }
