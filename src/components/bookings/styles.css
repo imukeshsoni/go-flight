@@ -12,4 +12,7 @@ td{
 	padding: 5px;
 	color: #000;
 }
-
+table > tbody > tr> td> button{
+	height: 40px;
+	cursor: pointer;
+}
