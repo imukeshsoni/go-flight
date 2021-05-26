@@ -1,0 +1,31 @@
+.flight__form{
+	border: 1px solid #078899;
+	margin: 0 0 10px 10px;
+	width: 95%;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.flight__form > form > input{
+	height: 40px;
+	margin: 5px;
+	padding-left: 5px;
+	font-weight: bold;
+}
+.flight__form> form>button{
+	height: 30px;
+	padding: 5px;
+	background-color: transparent;
+	cursor: pointer;
+	border: 1px solid #078899;
+	transition: all 0.3s ease-in-out;
+}
+.flight__form> form>button:hover{
+	background-color: #078899;
+	color: #fff;
+}
+form{
+	display: flex;
+	justify-items: flex-start;
+	align-items: center
+}

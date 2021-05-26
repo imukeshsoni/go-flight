@@ -1,9 +1,24 @@
 import React, { useState } from "react";
 import "./styles.css";
-import { deleteFlightById, getAllFlights, updateFlight } from "../../api-urls";
+import {
+  deleteFlightById,
+  getAllFlights,
+  updateFlight,
+  getFlightById,
+  createFlight,
+} from "../../api-urls";
 import axios from "axios";
 
 function Flights() {
+  const [newFlightId, setNewFlightId] = useState("");
+  const [newSource, setNewSource] = useState("");
+  const [newDestination, setNewDestination] = useState("");
+  const [newDepartureTime, setNewDepartureTime] = useState("");
+  const [newArrivalTime, setNewArrivalTime] = useState("");
+  const [newSeats, setNewSeats] = useState(0);
+  const [newFare, setNewFare] = useState(0);
+  const [warning, setWarning] = useState("");
+
   let allFlights = JSON.parse(localStorage.getItem("allFlights"));
   const [edit, setEdit] = useState("");
   const [updatedSource, setUpdatedSource] = useState("");
@@ -40,6 +55,35 @@ function Flights() {
     localStorage.removeItem("allFlights");
   };
 
+  const handleAddFlight = (e) => {
+    e.preventDefault();
+    const newFlight = {
+      flightId: newFlightId,
+      arrivalTime: newArrivalTime,
+      departureTime: newDepartureTime,
+      source: newSource,
+      destination: newDestination,
+      seats: newSeats,
+      fare: newFare,
+    };
+
+    axios.get(getFlightById + newFlightId).then((res) => {
+      if (res.data) {
+        setWarning("Flight already exists");
+        return;
+      } else {
+        axios
+          .post(createFlight, newFlight)
+          .then((res) => {
+            loadFlights();
+            window.location.reload();
+          })
+          .catch((err) => console.log(err));
+        localStorage.removeItem("allFlights");
+      }
+    });
+  };
+
   const handleDeleteFlight = (flightId) => {
     axios.delete(deleteFlightById).then((res) => {
       loadFlights();
@@ -54,6 +98,54 @@ function Flights() {
   }
   return (
     <div>
+      <div className="flight__form">
+        <form onSubmit={(e) => handleAddFlight(e)}>
+          <input
+            type="text"
+            placeholder="Enter Flight Id"
+            onChange={(e) => setNewFlightId(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Enter Source"
+            onChange={(e) => setNewSource(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Enter Destination"
+            onChange={(e) => setNewDestination(e.target.value)}
+            required
+          />
+          <input
+            type="time"
+            placeholder="Departure Time"
+            onChange={(e) => setNewDepartureTime(e.target.value)}
+            required
+          />
+          <input
+            type="time"
+            placeholder="Arrival Time"
+            onChange={(e) => setNewArrivalTime(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Enter Seats"
+            onChange={(e) => setNewSeats(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Enter Fare"
+            onChange={(e) => setNewFare(e.target.value)}
+            required
+          />
+          <button type="submit">Add Flight</button>
+        </form>
+        {warning && <p>{warning}</p>}
+      </div>
       <table>
         <thead>
           <tr>

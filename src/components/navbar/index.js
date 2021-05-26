@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./styles.css";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const history = useHistory();
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -13,6 +14,7 @@ const Navbar = () => {
   const handleLogOut = (e) => {
     localStorage.clear();
     window.location.reload();
+    history.push("/");
   };
   return (
     <>
