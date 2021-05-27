@@ -1,14 +1,18 @@
 table{
 	color: #078899
 }
+
 th{
+	border: none;
 	font-size: 18px;
 	padding: 5px;
+	
 }
 tr {
 	height: 40px;
 }
 td{
+	border: none;
 	padding: 5px;
 	color: #000;
 }

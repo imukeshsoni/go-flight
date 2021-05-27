@@ -1,27 +1,30 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./styles.css";
-import { useHistory } from "react-router-dom";
+
 import axios from "axios";
 import { createBooking, updateFlightSeatsById } from "../../api-urls";
+import Confirmation from "../../components/confirmation/index";
+import { useHistory } from "react-router";
 
 function Checkout() {
   let booking = JSON.parse(localStorage.getItem("booking"));
+  const [confirmed, setConfirmed] = useState(false);
   const history = useHistory();
+  
   const paypal = useRef();
 
   const pushOrder = (successMsg, errMsg) => {
     axios
       .post(createBooking, booking)
       .then((response) => {
-        history.push("/profile");
+       setConfirmed(true);
       })
       .catch((err) => {
         return <h2>{errMsg}</h2>;
       });
-    localStorage.removeItem("booking");
+    
     localStorage.removeItem("userBookings");
     axios.put(updateFlightSeatsById + booking.flightId);
-    return <h2>Processing...</h2>;
   };
 
   useEffect(() => {
@@ -58,6 +61,9 @@ function Checkout() {
 
   if (!booking || booking.length < 1) {
     return <h2>This Page is expired or no longer available!</h2>;
+  }
+  if(confirmed){
+   history.push("/confirmation");
   }
 
   return (
